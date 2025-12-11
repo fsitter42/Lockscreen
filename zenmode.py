@@ -25,7 +25,7 @@ try:
         print(f"\n🎯 Key '{key}' → Calling xdo...")
         
         # FIXED: Full path + os.path.expanduser
-        xdo_path = os.path.expanduser("~/xdoo/xdo")
+        xdo_path = os.path.expanduser("~/xdoo/Lockscreen/xdo")
         subprocess.run([xdo_path])
         
         print("🔒 Locked! Ready...")

@@ -18,4 +18,4 @@ additionally fill your screen with black via this bash alias:
 		flatpak run app.zen_browser.zen https://www.whitescreen.online/black-screen/ &
 	}
 
-Dont forget to set start screensafer to never
+Dont forget to set start screensafer to never and update the path in zenmode.py

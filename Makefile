@@ -1,4 +1,4 @@
-NAME = my_xdo
+NAME = xdo
 
 SOURCE = 	xdo.c	
 
