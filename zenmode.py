@@ -7,30 +7,36 @@ import time
 import os
 
 def getch():
+    """Detect ANY key including ESC"""
     fd = sys.stdin.fileno()
     old_settings = termios.tcgetattr(fd)
     try:
         tty.setcbreak(sys.stdin)
-        ch = sys.stdin.read(1)[0]
+        ch = sys.stdin.read(1)
+        if ch == '\x1b':  # ESC detected
+            # Consume escape sequence but return ESC
+            sys.stdin.read(2)  # Skip [A, [B, etc.
+            return 'ESC'
+        return ch if ch else ''
     finally:
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
-    return ch
 
-print("🔥 ZENMODE FULLY AUTOMATIC - Python + xdo!")
+print("🔥 ZENMODE - ANY KEY (incl ESC) → LOCK & EXIT!")
 print("Press Ctrl+C to stop")
 
 try:
     while True:
         key = getch()
-        print(f"\n🎯 Key '{key}' → Calling xdo...")
+        if key:  # Any non-empty key
+            print(f"\n🎯 Key '{key}' → LOCKING & EXITING!")
+            
+            xdo_path = os.path.expanduser("~/xdoo/Lockscreen/xdo")
+            subprocess.run([xdo_path])
+            
+            print("🔒 Locked! EXITING...")
+            sys.exit(0)
         
-        # FIXED: Full path + os.path.expanduser
-        xdo_path = os.path.expanduser("~/xdoo/Lockscreen/xdo")
-        subprocess.run([xdo_path])
-        
-        print("🔒 Locked! Ready...")
-        time.sleep(0.1)
+        time.sleep(0.01)  # Small poll delay
         
 except KeyboardInterrupt:
     print("\nZenmode stopped.")
-

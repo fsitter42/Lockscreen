@@ -19,3 +19,11 @@ additionally fill your screen with black via this bash alias:
 	}
 
 Dont forget to set start screensafer to never and update the path in zenmode.py
+
+
+
+MORE:
+
+	gcc -o xdo xdo.c -lX11 -lXtst -lXext
+	gcc -o clickdetect clickdetect.c -lX11
+	chmod +x xdo clickdetect
